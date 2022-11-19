@@ -16,8 +16,17 @@ object NetSpeed {
     private var totalSpeed: Long = 0L
     private var downSpeed: Long = 0L
     private var upSpeed: Long = 0L
+    private var isSpeedUnitBits: Boolean = false
 
-    fun getSpeed(s: Long, isSpeedUnitBits: Boolean = false): Speed {
+    fun setSpeedUnitBits(isSpeedUnitBits: Boolean) {
+        this.isSpeedUnitBits = isSpeedUnitBits
+    }
+
+    fun getSpeedUnitBits(): Boolean {
+        return isSpeedUnitBits
+    }
+
+    fun getSpeed(s: Long): Speed {
         var speed = s
 
         if (isSpeedUnitBits) {

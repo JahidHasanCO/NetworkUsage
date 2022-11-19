@@ -12,12 +12,16 @@ class NetworkUsageManager(
 
     private var lastTXByte = 0L
     private var lastRXByte = 0L
+    private var lastMobileTXByte = 0L
+    private var lastMobileRXByte = 0L
     private var lastTime = 0L
 
 
     init {
         lastTXByte = TrafficStats.getTotalTxBytes()
         lastRXByte = TrafficStats.getTotalRxBytes()
+        lastMobileTXByte = TrafficStats.getMobileTxBytes()
+        lastMobileRXByte = TrafficStats.getMobileRxBytes()
         lastTime = System.currentTimeMillis()
     }
 
@@ -26,30 +30,45 @@ class NetworkUsageManager(
 
         val currentRXByte = TrafficStats.getTotalRxBytes()
         val currentTXByte = TrafficStats.getTotalTxBytes()
+        val currentMobileRXByte = TrafficStats.getMobileRxBytes()
+        val currentMobileTXByte = TrafficStats.getMobileTxBytes()
         val currentTime = System.currentTimeMillis()
 
         val usedRxByte = currentRXByte - lastRXByte
         val usedTxByte = currentTXByte - lastTXByte
+        val usedMobileRxByte = currentMobileRXByte - lastMobileRXByte
+        val usedMobileTxByte = currentMobileTXByte - lastMobileTXByte
         val usedTime = currentTime - lastTime
 
         //update last values
         lastRXByte = currentRXByte
         lastTXByte = currentTXByte
+        lastMobileRXByte = currentMobileRXByte
+        lastMobileTXByte = currentMobileTXByte
         lastTime = currentTime
 
         return when (networkType) {
             NetworkType.MOBILE -> {
-                Usage(TrafficStats.getMobileRxBytes(), TrafficStats.getMobileTxBytes())
+
+                Usage(
+                    usedMobileRxByte,
+                    usedMobileTxByte,
+                    usedTime
+                )
             }
             NetworkType.WIFI -> {
+                Usage(
+                    usedRxByte - usedMobileRxByte,
+                    usedTxByte - usedMobileTxByte,
+                    usedTime
+                )
+            }
+            NetworkType.ALL -> {
                 Usage(
                     usedRxByte,
                     usedTxByte,
                     usedTime
                 )
-            }
-            NetworkType.ALL -> {
-                Usage(TrafficStats.getTotalRxBytes(), TrafficStats.getTotalTxBytes())
             }
         }
 

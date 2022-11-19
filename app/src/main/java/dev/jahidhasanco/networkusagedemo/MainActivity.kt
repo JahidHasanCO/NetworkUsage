@@ -40,7 +40,6 @@ class MainActivity : AppCompatActivity() {
         val networkStatsManager =
             getSystemService(Context.NETWORK_STATS_SERVICE) as NetworkStatsManager
         val telephonyManager = getSystemService(Context.TELEPHONY_SERVICE) as TelephonyManager
-
         val networkUsage = NetworkUsageManager(networkStatsManager, "telephonyManager.subscriberId")
 
         // Monitor single interval

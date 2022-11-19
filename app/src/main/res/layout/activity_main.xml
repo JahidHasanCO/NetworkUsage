@@ -14,10 +14,10 @@
         tools:context=".MainActivity">
 
         <LinearLayout
-            android:layout_margin="10dp"
-            android:background="@drawable/dash_bg"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:background="@drawable/dash_bg"
             android:orientation="vertical">
 
             <LinearLayout
@@ -31,7 +31,6 @@
                     android:id="@+id/totalSpeedTv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="15kb"
                     android:textColor="@color/purple_200"
                     android:textSize="15sp" />
 
@@ -42,9 +41,9 @@
                     android:layout_marginStart="10dp"
                     android:layout_marginEnd="5dp"
                     android:layout_weight="1"
-                    android:text="15kb"
+                    android:text="Data: 0 Kib"
                     android:textColor="@color/black"
-                    android:textSize="18sp"
+                    android:textSize="16sp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -54,9 +53,9 @@
                     android:layout_marginStart="10dp"
                     android:layout_marginEnd="5dp"
                     android:layout_weight="1"
-                    android:text="15kb"
+                    android:text="WiFi: 0 Kib"
                     android:textColor="@color/black"
-                    android:textSize="18sp"
+                    android:textSize="16sp"
                     android:textStyle="bold" />
 
             </LinearLayout>
@@ -67,8 +66,7 @@
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="10dp"
-                android:layout_marginBottom="10dp"
-                >
+                android:layout_marginBottom="10dp">
 
                 <TextView
                     android:id="@+id/downUsagesTv"

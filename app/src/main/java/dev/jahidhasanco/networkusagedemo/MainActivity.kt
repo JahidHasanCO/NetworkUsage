@@ -54,14 +54,8 @@ class MainActivity : AppCompatActivity() {
         val runnableCode = object : Runnable {
             override fun run() {
                 val now = networkUsage.getUsageNow(NetworkType.WIFI)
-
-                binding.today.text =
-                    "Up: ${
-                        NetSpeed.getSpeed(
-                            now.uploads,
-                            false
-                        )
-                    } Down: ${NetSpeed.getSpeed(now.downloads)}"
+                val speeds = NetSpeed.calculateSpeed(now.downloads, now.uploads, now.timeTaken)
+                binding.today.text = speeds.toString()
                 handler.postDelayed(this, 1000)
             }
         }

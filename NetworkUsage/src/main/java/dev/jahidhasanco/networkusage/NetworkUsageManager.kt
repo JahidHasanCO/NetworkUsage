@@ -10,48 +10,42 @@ class NetworkUsageManager(
     private val subscriberId: String
 ) {
 
-    var currentTXByte = 0L
-    var currentRXByte = 0L
-    var lastTXByte = 0L
-    var lastRXByte = 0L
-    var totalTXByte = 0L
-    var totalRXByte = 0L
+    private var lastTXByte = 0L
+    private var lastRXByte = 0L
+    private var lastTime = 0L
 
-//    fun initialUsages(networkType: NetworkType) {
-//        when (networkType) {
-//            NetworkType.MOBILE -> {
-//                currentTXByte = TrafficStats.getMobileTxBytes()
-//                currentRXByte = TrafficStats.getMobileRxBytes()
-//            }
-//            NetworkType.WIFI -> {
-//                currentTXByte = TrafficStats.getTotalTxBytes() - TrafficStats.getMobileTxBytes()
-//                currentRXByte = TrafficStats.getTotalRxBytes() - TrafficStats.getMobileRxBytes()
-//
-//            }
-//            NetworkType.ALL -> {
-//                currentTXByte = TrafficStats.getTotalTxBytes()
-//                currentRXByte = TrafficStats.getTotalRxBytes()
-//            }
-//        }
-//    }
+
+    init {
+        lastTXByte = TrafficStats.getTotalTxBytes()
+        lastRXByte = TrafficStats.getTotalRxBytes()
+        lastTime = System.currentTimeMillis()
+    }
 
 
     fun getUsageNow(networkType: NetworkType): Usage {
+
+        val currentRXByte = TrafficStats.getTotalRxBytes()
+        val currentTXByte = TrafficStats.getTotalTxBytes()
+        val currentTime = System.currentTimeMillis()
+
+        val usedRxByte = currentRXByte - lastRXByte
+        val usedTxByte = currentTXByte - lastTXByte
+        val usedTime = currentTime - lastTime
+
+        //update last values
+        lastRXByte = currentRXByte
+        lastTXByte = currentTXByte
+        lastTime = currentTime
 
         return when (networkType) {
             NetworkType.MOBILE -> {
                 Usage(TrafficStats.getMobileRxBytes(), TrafficStats.getMobileTxBytes())
             }
             NetworkType.WIFI -> {
-                totalRXByte = TrafficStats.getTotalRxBytes()
-                totalTXByte = TrafficStats.getTotalTxBytes()
-                currentTXByte = TrafficStats.getMobileTxBytes()
-                currentRXByte = TrafficStats.getMobileRxBytes()
-                lastRXByte = currentRXByte
-                lastTXByte = currentTXByte
                 Usage(
-                    totalRXByte - currentRXByte,
-                    totalTXByte - currentTXByte
+                    usedRxByte,
+                    usedTxByte,
+                    usedTime
                 )
             }
             NetworkType.ALL -> {

@@ -9,7 +9,59 @@ class NetworkUsageManager(
     private val statsManager: NetworkStatsManager,
     private val subscriberId: String
 ) {
+
+    var currentTXByte = 0L
+    var currentRXByte = 0L
+    var lastTXByte = 0L
+    var lastRXByte = 0L
+    var totalTXByte = 0L
+    var totalRXByte = 0L
+
+//    fun initialUsages(networkType: NetworkType) {
+//        when (networkType) {
+//            NetworkType.MOBILE -> {
+//                currentTXByte = TrafficStats.getMobileTxBytes()
+//                currentRXByte = TrafficStats.getMobileRxBytes()
+//            }
+//            NetworkType.WIFI -> {
+//                currentTXByte = TrafficStats.getTotalTxBytes() - TrafficStats.getMobileTxBytes()
+//                currentRXByte = TrafficStats.getTotalRxBytes() - TrafficStats.getMobileRxBytes()
+//
+//            }
+//            NetworkType.ALL -> {
+//                currentTXByte = TrafficStats.getTotalTxBytes()
+//                currentRXByte = TrafficStats.getTotalRxBytes()
+//            }
+//        }
+//    }
+
+
     fun getUsageNow(networkType: NetworkType): Usage {
+
+        return when (networkType) {
+            NetworkType.MOBILE -> {
+                Usage(TrafficStats.getMobileRxBytes(), TrafficStats.getMobileTxBytes())
+            }
+            NetworkType.WIFI -> {
+                totalRXByte = TrafficStats.getTotalRxBytes()
+                totalTXByte = TrafficStats.getTotalTxBytes()
+                currentTXByte = TrafficStats.getMobileTxBytes()
+                currentRXByte = TrafficStats.getMobileRxBytes()
+                lastRXByte = currentRXByte
+                lastTXByte = currentTXByte
+                Usage(
+                    totalRXByte - currentRXByte,
+                    totalTXByte - currentTXByte
+                )
+            }
+            NetworkType.ALL -> {
+                Usage(TrafficStats.getTotalRxBytes(), TrafficStats.getTotalTxBytes())
+            }
+        }
+
+    }
+
+    fun getUsageNowALL(networkType: NetworkType): Usage {
 
         return when (networkType) {
             NetworkType.MOBILE -> {

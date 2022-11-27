@@ -68,6 +68,34 @@ For allow app for `USAGE_ACCESS` one time `checkUsagePermission()` this function
     }
 ```
 
+For creating an object of `NetworkUsageManager` and initialize it you need to pass `Context` and `SubscriberId`
+```kotlin
+        val networkUsage = NetworkUsageManager(this, Util.getSubscriberId(this))
+```
+```kotlin
+        val handler = Handler()
+        val runnableCode = object : Runnable {
+            override fun run() {
+                val now = networkUsage.getUsageNow(NetworkType.ALL)
+                val speeds = NetSpeed.calculateSpeed(now.timeTaken, now.downloads, now.uploads)
+                val todayM = networkUsage.getUsage(Interval.today, NetworkType.MOBILE)
+                val todayW = networkUsage.getUsage(Interval.today, NetworkType.WIFI)
+
+                binding.wifiUsagesTv.text = Util.formatData(todayW.downloads, todayW.uploads)[2]
+                binding.dataUsagesTv.text = Util.formatData(todayM.downloads, todayM.uploads)[2]
+                binding.apply {
+                    totalSpeedTv.text = speeds[0].speed + "" + speeds[0].unit
+                    downUsagesTv.text = "Down: " + speeds[1].speed + speeds[1].unit
+                    upUsagesTv.text = "Up: " + speeds[2].speed + speeds[2].unit
+                }
+                handler.postDelayed(this, 1000)
+            }
+        }
+
+        runnableCode.run()
+```
+And This way You can get Real-Time Internet Speed. 
+
 ### License
 NetworkUsage is [MIT licensed.](LICENSE)
 

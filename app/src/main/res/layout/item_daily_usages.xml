@@ -29,6 +29,7 @@
             android:layout_margin="2dp"
             android:maxEms="20"
             android:padding="5dp"
+            android:textColor="@color/black"
             android:layout_height="wrap_content"
             android:text="Date" />
 
@@ -40,6 +41,7 @@
             android:layout_margin="2dp"
             android:maxEms="20"
             android:padding="5dp"
+            android:textColor="@color/black"
             android:layout_height="wrap_content"
             android:text="Date" />
 

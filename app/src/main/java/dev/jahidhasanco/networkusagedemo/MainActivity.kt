@@ -3,27 +3,25 @@ package dev.jahidhasanco.networkusagedemo
 
 import android.Manifest
 import android.annotation.SuppressLint
-import android.app.usage.NetworkStatsManager
-import android.content.Context
-import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.os.Handler
-import android.provider.Settings
-import android.telephony.TelephonyManager
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
+import androidx.recyclerview.widget.LinearLayoutManager
 import dev.jahidhasanco.networkusage.*
+import dev.jahidhasanco.networkusagedemo.data.model.UsagesData
 import dev.jahidhasanco.networkusagedemo.databinding.ActivityMainBinding
+import dev.jahidhasanco.networkusagedemo.presentation.adapter.DataUsagesAdapter
 
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
-
+    private lateinit var dataUsagesAdapter: DataUsagesAdapter
+    private var usagesDataList = ArrayList<UsagesData>()
 
     @SuppressLint("HardwareIds")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -34,22 +32,78 @@ class MainActivity : AppCompatActivity() {
 
         val networkUsage = NetworkUsageManager(this, Util.getSubscriberId(this))
 
-        val last30Days = networkUsage.getMultiUsage(
-            Interval.lastMonthDaily, NetworkType.ALL
+        val last30DaysWIFI = networkUsage.getMultiUsage(
+            Interval.lastMonthDaily, NetworkType.WIFI
         )
 
-        var last30DaysString = ""
-        var count = 1
-        last30Days.forEach {
-            last30DaysString += "${it.date} : ${
-                Util.formatData(
-                    it.downloads,
-                    it.uploads
-                )[2]
-            } \n"
+        val last30DaysMobile = networkUsage.getMultiUsage(
+            Interval.lastMonthDaily, NetworkType.MOBILE
+        )
+
+        for (i in last30DaysWIFI.indices) {
+            usagesDataList.add(
+                UsagesData(
+                    Util.formatData(
+                        last30DaysMobile[i].downloads,
+                        last30DaysMobile[i].uploads
+                    )[2],
+                    Util.formatData(
+                        last30DaysWIFI[i].downloads,
+                        last30DaysWIFI[i].uploads
+                    )[2],
+                    last30DaysWIFI[i].date
+                )
+            )
         }
 
-        binding.pastData.text = last30DaysString
+        val last7DaysTotalWIFI = networkUsage.getUsage(
+            Interval.last7days, NetworkType.WIFI
+        )
+
+        val last7DaysTotalMobile = networkUsage.getUsage(
+            Interval.last7days, NetworkType.MOBILE
+        )
+
+        val last30DaysTotalWIFI = networkUsage.getUsage(
+            Interval.last30days, NetworkType.WIFI
+        )
+
+        val last30DaysTotalMobile = networkUsage.getUsage(
+            Interval.last30days, NetworkType.MOBILE
+        )
+
+        usagesDataList.add(
+            UsagesData(
+                Util.formatData(
+                    last7DaysTotalMobile.downloads,
+                    last7DaysTotalMobile.uploads
+                )[2],
+                Util.formatData(
+                    last7DaysTotalWIFI.downloads,
+                    last7DaysTotalWIFI.uploads
+                )[2],
+                "Last 7 Days"
+            )
+        )
+
+        usagesDataList.add(
+            UsagesData(
+                Util.formatData(
+                    last30DaysTotalMobile.downloads,
+                    last30DaysTotalMobile.uploads
+                )[2],
+                Util.formatData(
+                    last30DaysTotalWIFI.downloads,
+                    last30DaysTotalWIFI.uploads
+                )[2],
+                "Last 30 Days"
+            )
+        )
+
+        dataUsagesAdapter = DataUsagesAdapter(usagesDataList)
+        binding.monthlyDataUsagesRv.layoutManager = LinearLayoutManager(this)
+        binding.monthlyDataUsagesRv.setHasFixedSize(true)
+        binding.monthlyDataUsagesRv.adapter = dataUsagesAdapter
 
         val handler = Handler()
 
@@ -63,7 +117,7 @@ class MainActivity : AppCompatActivity() {
                 binding.wifiUsagesTv.text = Util.formatData(todayW.downloads, todayW.uploads)[2]
                 binding.dataUsagesTv.text = Util.formatData(todayM.downloads, todayM.uploads)[2]
                 binding.apply {
-                    totalSpeedTv.text = speeds[0].speed + " " + speeds[0].unit
+                    totalSpeedTv.text = speeds[0].speed + "" + speeds[0].unit
                     downUsagesTv.text = "Down: " + speeds[1].speed + speeds[1].unit
                     upUsagesTv.text = "Up: " + speeds[2].speed + speeds[2].unit
 

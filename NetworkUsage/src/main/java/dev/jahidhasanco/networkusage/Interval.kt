@@ -47,7 +47,7 @@ object Interval {
         get() {
             val calendar = Calendar.getInstance()
 
-            calendar.add(Calendar.DATE, 0)
+            calendar.add(Calendar.DATE, 1)
             calendar.set(Calendar.HOUR_OF_DAY, 0)
             calendar.clear(Calendar.MINUTE)
             calendar.clear(Calendar.SECOND)
@@ -76,7 +76,7 @@ object Interval {
     val lastMonthDaily: List<TimeInterval>
         get() {
             val calendar = Calendar.getInstance()
-            calendar.add(Calendar.DATE, 0)
+            calendar.add(Calendar.DATE, 1)
             calendar.set(Calendar.HOUR_OF_DAY, 0)
             calendar.clear(Calendar.MINUTE)
             calendar.clear(Calendar.SECOND)

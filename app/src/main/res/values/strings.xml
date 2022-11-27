@@ -1,3 +1,4 @@
 <resources>
-    <string name="app_name">Network Usage Demo</string>
+    <string name="app_name">Network Usage</string>
+    <string name="full_month_data_usages">Full Month Data Usages</string>
 </resources>

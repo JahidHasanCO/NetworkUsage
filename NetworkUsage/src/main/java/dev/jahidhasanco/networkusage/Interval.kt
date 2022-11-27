@@ -1,8 +1,14 @@
 package dev.jahidhasanco.networkusage
 
+
+import java.text.DateFormat
 import java.util.*
 
 object Interval {
+
+
+    private var parser: DateFormat =
+        DateFormat.getDateInstance(DateFormat.DEFAULT, Locale.getDefault())
 
     val today: TimeInterval
         get() {
@@ -17,7 +23,7 @@ object Interval {
             calendar.add(Calendar.DATE, 1)
             val end = calendar.timeInMillis
 
-            return TimeInterval(start, end)
+            return TimeInterval(start, end, parser.format(calendar.time))
         }
 
     val yesterday: TimeInterval
@@ -33,10 +39,67 @@ object Interval {
 
             calendar.add(Calendar.DATE, 1)
             val end = calendar.timeInMillis
-
-            return TimeInterval(start, end)
+            return TimeInterval(start, end, parser.format(calendar.time))
         }
 
+    // This will return the last 7 days including today
+    val lastWeekDaily: List<TimeInterval>
+        get() {
+            val calendar = Calendar.getInstance()
+
+            calendar.add(Calendar.DATE, 0)
+            calendar.set(Calendar.HOUR_OF_DAY, 0)
+            calendar.clear(Calendar.MINUTE)
+            calendar.clear(Calendar.SECOND)
+            calendar.clear(Calendar.MILLISECOND)
+            val start = calendar.timeInMillis
+
+            calendar.add(Calendar.DATE, 1)
+            val end = calendar.timeInMillis
+
+            val intervals = mutableListOf<TimeInterval>()
+            for (i in 1..7) {
+                calendar.add(Calendar.DATE, -1)
+                intervals.add(
+                    TimeInterval(
+                        start - (i * 86400000),
+                        end - (i * 86400000), //i * 24 * 60 * 60 * 1000
+                        parser.format(calendar.time)
+                    )
+                )
+            }
+
+            return intervals
+        }
+
+    //this will return the last 30 days data with date
+    val lastMonthDaily: List<TimeInterval>
+        get() {
+            val calendar = Calendar.getInstance()
+            calendar.add(Calendar.DATE, 0)
+            calendar.set(Calendar.HOUR_OF_DAY, 0)
+            calendar.clear(Calendar.MINUTE)
+            calendar.clear(Calendar.SECOND)
+            calendar.clear(Calendar.MILLISECOND)
+            val start = calendar.timeInMillis
+
+            calendar.add(Calendar.DATE, 1)
+            val end = calendar.timeInMillis
+
+            val intervals = mutableListOf<TimeInterval>()
+            for (i in 1..30) {
+                calendar.add(Calendar.DATE, -1)
+                intervals.add(
+                    TimeInterval(
+                        start - (i * 86400000),
+                        end - (i * 86400000),
+                        parser.format(calendar.time)
+                    )
+                )
+            }
+
+            return intervals
+        }
 
     val last7days: TimeInterval
         get() {
@@ -51,7 +114,7 @@ object Interval {
             calendar.clear(Calendar.MILLISECOND)
             val start = calendar.timeInMillis
 
-            return TimeInterval(start, end)
+            return TimeInterval(start, end, parser.format(calendar.time))
         }
 
     val last30days: TimeInterval
@@ -68,7 +131,7 @@ object Interval {
             calendar.clear(Calendar.MILLISECOND)
             val start = calendar.timeInMillis
 
-            return TimeInterval(start, end)
+            return TimeInterval(start, end, parser.format(calendar.time))
         }
 
     val week: TimeInterval
@@ -85,7 +148,7 @@ object Interval {
             calendar.add(Calendar.DATE, 6)
             val end = calendar.timeInMillis
 
-            return TimeInterval(start, end)
+            return TimeInterval(start, end, parser.format(calendar.time))
         }
 
     val month: TimeInterval
@@ -102,7 +165,7 @@ object Interval {
             calendar.add(Calendar.MONTH, 1)
             val end = calendar.timeInMillis
 
-            return TimeInterval(start, end)
+            return TimeInterval(start, end, parser.format(calendar.time))
         }
 
     fun monthlyPlan(startDay: Int): TimeInterval {
@@ -118,7 +181,7 @@ object Interval {
         calendar.add(Calendar.MONTH, 1)
         val end = calendar.timeInMillis
 
-        return TimeInterval(start, end)
+        return TimeInterval(start, end, parser.format(calendar.time))
     }
 
     fun weeklyPlan(startDay: Int): TimeInterval {
@@ -134,6 +197,6 @@ object Interval {
         calendar.add(Calendar.DATE, 6)
         val end = calendar.timeInMillis
 
-        return TimeInterval(start, end)
+        return TimeInterval(start, end, parser.format(calendar.time))
     }
 }

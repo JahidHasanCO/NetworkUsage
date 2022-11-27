@@ -32,25 +32,16 @@ class MainActivity : AppCompatActivity() {
 
         setupPermissions()
 
+        val networkUsage = NetworkUsageManager(this, Util.getSubscriberId(this))
 
-        val networkStatsManager =
-            getSystemService(Context.NETWORK_STATS_SERVICE) as NetworkStatsManager
-
-        val networkUsage = NetworkUsageManager(networkStatsManager, Util.getSubscriberId(this))
-
-
-        // Monitor single interval
-
-
-        // Monitor multiple interval
         val last30Days = networkUsage.getMultiUsage(
-            listOf(Interval.month, Interval.last30days), NetworkType.WIFI
+            Interval.lastMonthDaily, NetworkType.ALL
         )
 
         var last30DaysString = ""
-
+        var count = 1
         last30Days.forEach {
-            last30DaysString += "${it.timeTaken} : ${
+            last30DaysString += "${it.date} : ${
                 Util.formatData(
                     it.downloads,
                     it.uploads
@@ -105,7 +96,7 @@ class MainActivity : AppCompatActivity() {
         )
 
         if (permission2 != PackageManager.PERMISSION_GRANTED) {
-            // startActivity(Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS))
+            //startActivity(Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS))
         }
     }
 }

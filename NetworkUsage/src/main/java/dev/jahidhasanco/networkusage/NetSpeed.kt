@@ -26,7 +26,7 @@ object NetSpeed {
         return isSpeedUnitBits
     }
 
-    fun getSpeed(s: Long): Speed {
+    private fun getSpeed(s: Long): Speed {
         var speed = s
 
         if (isSpeedUnitBits) {

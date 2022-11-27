@@ -28,6 +28,45 @@ dependencies {
 For `Maven` [check this](docs/maven.md) for your reference.
 
 ### Examples
+For this library, it requires `minSdk 23` in your project. It requires two `uses-permission` in your [AndroidManifest.xml](app/src/main/AndroidManifest.xml) file. First one is `<uses-permission android:name="android.permission.READ_PHONE_STATE" />` and second one is `<uses-permission
+        android:name="android.permission.READ_PRIVILEGED_PHONE_STATE"
+        tools:ignore="ProtectedPermissions" />`
+
+First, you need to check if `PERMISSION_GRANTED` or not. So, first check for permissions by calling `setupPermissions()` function. 
+
+```kotlin
+    private fun setupPermissions() {
+        val permission = ContextCompat.checkSelfPermission(
+            this, Manifest.permission.READ_PHONE_STATE
+        )
+        if (permission != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(
+                this, arrayOf(Manifest.permission.READ_PHONE_STATE), 34
+            )
+        }
+        if (!checkUsagePermission()) {
+            Toast.makeText(this, "Please allow usage access", Toast.LENGTH_SHORT).show()
+        }
+    }
+```
+For allow app for `USAGE_ACCESS` one time `checkUsagePermission()` this function will return `ACTION_USAGE_ACCESS_SETTINGS` `PERMISSION_GRANTED` or not.
+```kotlin
+    private fun checkUsagePermission(): Boolean {
+        val appOps = getSystemService(Context.APP_OPS_SERVICE) as AppOpsManager
+        var mode = 0
+        mode = appOps.checkOpNoThrow(
+            "android:get_usage_stats", Process.myUid(),
+            packageName
+        )
+        val granted = mode == AppOpsManager.MODE_ALLOWED
+        if (!granted) {
+            val intent = Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS)
+            startActivity(intent)
+            return false
+        }
+        return true
+    }
+```
 
 ### License
 NetworkUsage is [MIT licensed.](LICENSE)

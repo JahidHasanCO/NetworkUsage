@@ -50,7 +50,7 @@ To get a Git project into your build:
 ```
 
 ### License
-NetworkUsage is [MIT licensed.](LICENSE.md)
+NetworkUsage is [MIT licensed.](LICENSE)
 
 ### Contributing 💡
 If you want to contribute to this project and make it better with new ideas, your pull request is very welcomed.

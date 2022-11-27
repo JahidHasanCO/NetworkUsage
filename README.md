@@ -3,7 +3,7 @@
 [![](https://jitpack.io/v/JahidHasanCO/NetworkUsage.svg)](https://jitpack.io/#JahidHasanCO/NetworkUsage)
 
 ## Preview 
-<img src="https://github.com/JahidHasanCO/NetworkUsage/blob/master/ART/s1.jpg" width="270" height="585"> <img src="https://github.com/JahidHasanCO/NetworkUsage/blob/master/ART/s2.jpg" width="270" height="585"> 
+<img src="https://github.com/JahidHasanCO/NetworkUsage/blob/master/ART/s2.jpg" width="270" height="585"> <img src="https://github.com/JahidHasanCO/NetworkUsage/blob/master/ART/s1.jpg" width="270" height="585"> 
 
 # Installation
 **For Gradle:**

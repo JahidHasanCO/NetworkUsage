@@ -7,7 +7,7 @@ import android.net.TrafficStats
 
 class NetworkUsageManager(
     private val statsManager: NetworkStatsManager,
-    private val subscriberId: String
+    private val subscriberId: String?
 ) {
 
     private var lastTXByte = 0L
@@ -104,7 +104,7 @@ class NetworkUsageManager(
 
         val bucket = NetworkStats.Bucket()
         val usage = Usage()
-
+        usage.timeTaken = interval.end - interval.start
         while (stats.hasNextBucket()) {
             stats.getNextBucket(bucket)
 

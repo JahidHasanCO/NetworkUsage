@@ -7,20 +7,18 @@ import android.app.usage.NetworkStatsManager
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.provider.Settings
 import android.telephony.TelephonyManager
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
-import dev.jahidhasanco.networkusage.Interval
-import dev.jahidhasanco.networkusage.NetSpeed
-import dev.jahidhasanco.networkusage.NetworkType
-import dev.jahidhasanco.networkusage.NetworkUsageManager
+import dev.jahidhasanco.networkusage.*
 import dev.jahidhasanco.networkusagedemo.databinding.ActivityMainBinding
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -32,21 +30,35 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
-
-        ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.READ_PHONE_STATE), 34)
         setupPermissions()
-        // startActivity(Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS))
+
 
         val networkStatsManager =
             getSystemService(Context.NETWORK_STATS_SERVICE) as NetworkStatsManager
-        val telephonyManager = getSystemService(Context.TELEPHONY_SERVICE) as TelephonyManager
-        val networkUsage = NetworkUsageManager(networkStatsManager, "telephonyManager.subscriberId")
+
+        val networkUsage = NetworkUsageManager(networkStatsManager, Util.getSubscriberId(this))
+
 
         // Monitor single interval
-        // val today = networkUsage.getUsage(Interval.today, NetworkType.MOBILE)
+
 
         // Monitor multiple interval
-        //  val last30Days = networkUsage.getMultiUsage(listOf(Interval.month, Interval.last30days), NetworkType.WIFI)
+        val last30Days = networkUsage.getMultiUsage(
+            listOf(Interval.month, Interval.last30days), NetworkType.WIFI
+        )
+
+        var last30DaysString = ""
+
+        last30Days.forEach {
+            last30DaysString += "${it.timeTaken} : ${
+                Util.formatData(
+                    it.downloads,
+                    it.uploads
+                )[2]
+            } \n"
+        }
+
+        binding.pastData.text = last30DaysString
 
         val handler = Handler()
 
@@ -54,10 +66,17 @@ class MainActivity : AppCompatActivity() {
             override fun run() {
                 val now = networkUsage.getUsageNow(NetworkType.ALL)
                 val speeds = NetSpeed.calculateSpeed(now.timeTaken, now.downloads, now.uploads)
+                val todayM = networkUsage.getUsage(Interval.today, NetworkType.MOBILE)
+                val todayW = networkUsage.getUsage(Interval.today, NetworkType.WIFI)
+
+                binding.wifiUsagesTv.text = Util.formatData(todayW.downloads, todayW.uploads)[2]
+                binding.dataUsagesTv.text = Util.formatData(todayM.downloads, todayM.uploads)[2]
                 binding.apply {
                     totalSpeedTv.text = speeds[0].speed + " " + speeds[0].unit
                     downUsagesTv.text = "Down: " + speeds[1].speed + speeds[1].unit
                     upUsagesTv.text = "Up: " + speeds[2].speed + speeds[2].unit
+
+
                 }
                 handler.postDelayed(this, 1000)
             }
@@ -72,12 +91,21 @@ class MainActivity : AppCompatActivity() {
 
     private fun setupPermissions() {
         val permission = ContextCompat.checkSelfPermission(
-            this,
-            Manifest.permission.READ_PHONE_STATE
+            this, Manifest.permission.READ_PHONE_STATE
         )
 
         if (permission != PackageManager.PERMISSION_GRANTED) {
-            Toast.makeText(this, "Permission to record denied", Toast.LENGTH_SHORT).show()
+            ActivityCompat.requestPermissions(
+                this, arrayOf(Manifest.permission.READ_PHONE_STATE), 34
+            )
+        }
+
+        val permission2 = ContextCompat.checkSelfPermission(
+            this, Manifest.permission.PACKAGE_USAGE_STATS
+        )
+
+        if (permission2 != PackageManager.PERMISSION_GRANTED) {
+            // startActivity(Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS))
         }
     }
 }

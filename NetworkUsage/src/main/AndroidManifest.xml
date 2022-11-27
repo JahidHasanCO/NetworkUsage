@@ -1,3 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest package="dev.jahidhasanco.networkusage" />
+<manifest xmlns:tools="http://schemas.android.com/tools"
+    package="dev.jahidhasanco.networkusage"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+    <uses-permission android:name="android.permission.READ_PRIVILEGED_PHONE_STATE"
+        tools:ignore="ProtectedPermissions" />
+</manifest>
 

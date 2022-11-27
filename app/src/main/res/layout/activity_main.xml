@@ -25,8 +25,8 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
                     android:layout_marginStart="20dp"
+                    android:layout_marginTop="20dp"
                     android:layout_marginEnd="20dp"
                     android:background="@drawable/dash_bg"
                     android:orientation="vertical">
@@ -54,7 +54,7 @@
                             android:layout_weight="1"
                             android:text="Data: 0 Kib"
                             android:textColor="@color/purple_500"
-                            android:textSize="16sp"
+                            android:textSize="15sp"
                             android:textStyle="bold" />
 
                         <TextView
@@ -66,7 +66,7 @@
                             android:layout_weight="1"
                             android:text="WiFi: 0 Kib"
                             android:textColor="@color/purple_500"
-                            android:textSize="16sp"
+                            android:textSize="15sp"
                             android:textStyle="bold" />
 
                     </LinearLayout>
@@ -86,7 +86,7 @@
                             android:layout_weight="1"
                             android:text="15kb"
                             android:textColor="@color/black"
-                            android:textSize="18sp" />
+                            android:textSize="15sp" />
 
                         <TextView
                             android:id="@+id/upUsagesTv"
@@ -95,7 +95,7 @@
                             android:layout_weight="1"
                             android:text="15kb"
                             android:textColor="@color/black"
-                            android:textSize="18sp" />
+                            android:textSize="15sp" />
 
                     </LinearLayout>
 
@@ -122,12 +122,11 @@
                     android:layout_marginTop="10dp"
                     android:layout_marginEnd="20dp"
                     android:layout_marginBottom="10dp"
-                    tools:listitem="@layout/item_daily_usages"
-                    />
+                    tools:listitem="@layout/item_daily_usages" />
 
                 <Space
                     android:layout_width="match_parent"
-                    android:layout_height="10dp"/>
+                    android:layout_height="10dp" />
 
             </LinearLayout>
 

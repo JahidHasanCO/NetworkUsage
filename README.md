@@ -1,6 +1,6 @@
 # NetworkUsage
 
-NetworkUsage is an Android Studio library to monitor cellular and Wi-Fi data usage easily. It is useful as a real-time internet speed monitor and also monitors daily, weekly and monthly data usage. [![](https://jitpack.io/v/JahidHasanCO/NetworkUsage.svg)](https://jitpack.io/#JahidHasanCO/NetworkUsage)
+NetworkUsage is an Android Studio library to monitor cellular and Wi-Fi data usage easily. It is useful as a real-time internet speed monitor and also monitors daily, weekly and monthly data usage. [![](https://jitpack.io/v/JahidHasanCO/NetworkUsage.svg)](https://jitpack.io/#JahidHasanCO/NetworkUsage) [![Android CI](https://github.com/JahidHasanCO/NetworkUsage/actions/workflows/android.yml/badge.svg?branch=master)](https://github.com/JahidHasanCO/NetworkUsage/actions/workflows/android.yml)
 
 ## Preview 
 <img src="https://github.com/JahidHasanCO/NetworkUsage/blob/master/ART/s2.jpg" width="270" height="585"> <img src="https://github.com/JahidHasanCO/NetworkUsage/blob/master/ART/s1.jpg" width="270" height="585"> 

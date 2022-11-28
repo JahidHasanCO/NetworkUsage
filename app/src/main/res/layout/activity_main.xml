@@ -14,8 +14,13 @@
         tools:context=".MainActivity">
 
         <androidx.core.widget.NestedScrollView
+            android:id="@+id/nestedScrollView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toTopOf="@+id/linearLayout"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -29,70 +34,90 @@
                     android:layout_marginTop="20dp"
                     android:layout_marginEnd="20dp"
                     android:background="@drawable/dash_bg"
-                    android:orientation="vertical">
+                    android:baselineAligned="false"
+                    android:orientation="horizontal">
 
                     <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginEnd="10dp">
-
-                        <TextView
-                            android:id="@+id/totalSpeedTv"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textColor="@color/purple_500"
-                            android:textSize="15sp" />
-
-                        <TextView
-                            android:id="@+id/dataUsagesTv"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="10dp"
-                            android:layout_marginEnd="5dp"
-                            android:layout_weight="1"
-                            android:text="Data: 0 Kib"
-                            android:textColor="@color/purple_500"
-                            android:textSize="15sp"
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:id="@+id/wifiUsagesTv"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="10dp"
-                            android:layout_marginEnd="5dp"
-                            android:layout_weight="1"
-                            android:text="WiFi: 0 Kib"
-                            android:textColor="@color/purple_500"
-                            android:textSize="15sp"
-                            android:textStyle="bold" />
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_width="0dp"
+                        android:layout_height="60dp"
                         android:layout_marginStart="10dp"
                         android:layout_marginTop="10dp"
                         android:layout_marginEnd="10dp"
-                        android:layout_marginBottom="10dp">
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_weight="1"
+                            tools:ignore="NestedWeights">
+
+                            <TextView
+                                android:id="@+id/totalSpeedTv"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:gravity="center_vertical"
+                                android:textColor="@color/purple_500"
+                                android:textSize="7sp"
+                                tools:ignore="SmallSp" />
+
+                            <TextView
+                                android:id="@+id/dataUsagesTv"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:layout_marginStart="10dp"
+                                android:gravity="center_vertical"
+                                android:maxLines="1"
+                                android:text="Data: 0 Kib"
+                                android:textColor="@color/purple_500"
+                                android:textSize="15sp"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+
 
                         <TextView
                             android:id="@+id/downUsagesTv"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
                             android:layout_weight="1"
+                            android:gravity="center_vertical"
                             android:text="15kb"
                             android:textColor="@color/black"
                             android:textSize="15sp" />
 
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="60dp"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/wifiUsagesTv"
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_weight="1"
+                            android:gravity="center_vertical"
+                            android:maxLines="1"
+                            android:text="WiFi: 0 Kib"
+                            android:textColor="@color/purple_500"
+                            android:textSize="15sp"
+                            android:textStyle="bold"
+                            tools:ignore="NestedWeights" />
+
+
                         <TextView
                             android:id="@+id/upUsagesTv"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
                             android:layout_weight="1"
+                            android:gravity="center_vertical"
                             android:text="15kb"
                             android:textColor="@color/black"
                             android:textSize="15sp" />
@@ -113,24 +138,107 @@
                     android:textSize="16sp"
                     android:textStyle="bold" />
 
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginBottom="2dp">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="2dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/usages_dash_color_primary"
+                        android:maxEms="20"
+                        android:padding="5dp"
+                        android:text="Date"
+                        android:textColor="@color/white" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@drawable/usages_dash_color_primary"
+                        android:maxEms="20"
+                        android:padding="5dp"
+                        android:text="@string/mobile"
+                        android:textColor="@color/white" />
+
+                    <TextView
+                        android:id="@+id/wifi_data"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="2dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/usages_dash_color_primary"
+                        android:maxEms="20"
+                        android:padding="5dp"
+                        android:text="@string/wifi"
+                        android:textColor="@color/white" />
+
+                </LinearLayout>
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/monthlyDataUsagesRv"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
-                    android:layout_marginTop="10dp"
                     android:layout_marginEnd="20dp"
-                    android:layout_marginBottom="10dp"
                     tools:listitem="@layout/item_daily_usages" />
 
-                <Space
-                    android:layout_width="match_parent"
-                    android:layout_height="10dp" />
 
             </LinearLayout>
 
         </androidx.core.widget.NestedScrollView>
+
+        <LinearLayout
+            android:id="@+id/linearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="2dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="2dp"
+                android:layout_weight="1"
+                android:background="@drawable/usages_dash_color_primary"
+                android:maxEms="20"
+                android:padding="5dp"
+                android:text="@string/last_30_days"
+                android:textColor="@color/white" />
+
+            <TextView
+                android:id="@+id/mobile_data_this_month"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="2dp"
+                android:layout_weight="1"
+                android:background="@drawable/usages_dash_color"
+                android:maxEms="20"
+                android:padding="5dp"
+                android:textColor="@color/black" />
+
+            <TextView
+                android:id="@+id/wifi_data_this_month"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="2dp"
+                android:layout_weight="1"
+                android:background="@drawable/usages_dash_color"
+                android:maxEms="20"
+                android:padding="5dp"
+                android:textColor="@color/black" />
+
+        </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

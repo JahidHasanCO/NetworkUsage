@@ -56,7 +56,7 @@ object Interval {
 
             calendar.add(Calendar.DATE, 1)
             val end = calendar.timeInMillis
-
+            calendar.add(Calendar.DATE, -1)
             val intervals = mutableListOf<TimeInterval>()
             for (i in 1..7) {
                 calendar.add(Calendar.DATE, -1)
@@ -85,7 +85,7 @@ object Interval {
 
             calendar.add(Calendar.DATE, 1)
             val end = calendar.timeInMillis
-
+            calendar.add(Calendar.DATE, -1)
             val intervals = mutableListOf<TimeInterval>()
             for (i in 1..30) {
                 calendar.add(Calendar.DATE, -1)

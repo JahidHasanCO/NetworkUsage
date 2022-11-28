@@ -21,6 +21,7 @@ import dev.jahidhasanco.networkusage.*
 import dev.jahidhasanco.networkusagedemo.data.model.UsagesData
 import dev.jahidhasanco.networkusagedemo.databinding.ActivityMainBinding
 import dev.jahidhasanco.networkusagedemo.presentation.adapter.DataUsagesAdapter
+import kotlinx.android.synthetic.main.activity_main.*
 
 
 class MainActivity : AppCompatActivity() {
@@ -46,13 +47,12 @@ class MainActivity : AppCompatActivity() {
                 val todayM = networkUsage.getUsage(Interval.today, NetworkType.MOBILE)
                 val todayW = networkUsage.getUsage(Interval.today, NetworkType.WIFI)
 
-                binding.wifiUsagesTv.text = Util.formatData(todayW.downloads, todayW.uploads)[2]
-                binding.dataUsagesTv.text = Util.formatData(todayM.downloads, todayM.uploads)[2]
+                binding.wifiUsagesTv.text = "WiFi: " + Util.formatData(todayW.downloads, todayW.uploads)[2]
+                binding.dataUsagesTv.text = "Mobile: " + Util.formatData(todayM.downloads, todayM.uploads)[2]
                 binding.apply {
-                    totalSpeedTv.text = speeds[0].speed + "" + speeds[0].unit
+                    totalSpeedTv.text = speeds[0].speed + "\n" + speeds[0].unit
                     downUsagesTv.text = "Down: " + speeds[1].speed + speeds[1].unit
                     upUsagesTv.text = "Up: " + speeds[2].speed + speeds[2].unit
-
 
                 }
                 handler.postDelayed(this, 1000)
@@ -115,19 +115,15 @@ class MainActivity : AppCompatActivity() {
             )
         )
 
-        usagesDataList.add(
-            UsagesData(
-                Util.formatData(
-                    last30DaysTotalMobile.downloads,
-                    last30DaysTotalMobile.uploads
-                )[2],
-                Util.formatData(
-                    last30DaysTotalWIFI.downloads,
-                    last30DaysTotalWIFI.uploads
-                )[2],
-                "Last 30 Days"
-            )
-        )
+        binding.wifiDataThisMonth.text = Util.formatData(
+            last30DaysTotalWIFI.downloads,
+            last30DaysTotalWIFI.uploads
+        )[2]
+
+        binding.mobileDataThisMonth.text = Util.formatData(
+            last30DaysTotalMobile.downloads,
+            last30DaysTotalMobile.uploads
+        )[2]
 
         dataUsagesAdapter = DataUsagesAdapter(usagesDataList)
         binding.monthlyDataUsagesRv.layoutManager = LinearLayoutManager(this)

@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">Network Usage</string>
-    <string name="full_month_data_usages">Full Month Data Usages</string>
+    <string name="full_month_data_usages">This Month Data Usages</string>
+    <string name="wifi">WiFI</string>
+    <string name="mobile">Mobile</string>
+    <string name="last_30_days">Last 30 Days</string>
 </resources>

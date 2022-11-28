@@ -27,6 +27,30 @@ dependencies {
 
 For `Maven` [check this](docs/maven.md) for your reference.
 
+### Documentation
+`NetworkUsageManager`
+`public class NetworkUsageManager` 
+Parameter | Details
+---|---|
+context: Context | Interface to global information about an application environment. This is an abstract class whose implementation is provided by the Android system. |
+subscriberId: String? | In `TelephonyManager` has `getSubscriberId()` Returns the unique subscriber ID, for example, the IMSI for a GSM phone. |
+
+To initialize `NetworkUsageManager` you need to create and object and pass as a parameter `Context` and `TelephonyManager.getSubscriberId()` by default we provide an `utility function` to `getSubscriberId()`.  `Util.getSubscriberId(this)` will return subscriber id if it available. So, this method can be `return null`.
+
+#### To create an Object
+
+```kotlin
+     val networkUsage = NetworkUsageManager(this, Util.getSubscriberId(this))
+```
+
+### Public Methods
+Usages In | Details |
+--------|--
+open [NetworkUsageManager](docs/docs.md) | `fun getUsageNow(networkType: NetworkType: Usage ` return Usage of current `Timestamp`. It take [NetworkType]() as a Parameter. | 
+open [NetworkUsageManager](docs/docs.md) | `fun getUsage(interval: TimeInterval, networkType: NetworkType): Usage` return Usage of a single `Timestamp`. It takes [TimeInterval]() and [NetworkType]() for get a single time prieod of Data. |
+open [NetworkUsageManager](docs/docs.md) | `    fun getMultiUsage(intervals: List<TimeInterval>, networkType: NetworkType): List<DataUsage>` return List of Usage of multiple `Timestamp`. It takes list of [TimeInterval]() and [NetworkType]() for get multi-time prieod of Data. |
+Full [Documentation](docs/docs.md) is here.
+
 ### Examples
 For this library, it requires `minSdk 23` in your project. It requires two `uses-permission` in your [AndroidManifest.xml](app/src/main/AndroidManifest.xml) file. First one is `<uses-permission android:name="android.permission.READ_PHONE_STATE" />` and second one is `<uses-permission
         android:name="android.permission.READ_PRIVILEGED_PHONE_STATE"

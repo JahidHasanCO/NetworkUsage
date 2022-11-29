@@ -45,7 +45,24 @@ Name| Details |
 `fun monthlyPlan(startDay: Int): TimeInterval ` | This method take `startDay: Int` as a parameter and return start and end `timeInMillis` and `Date` from `startDay` as [TimeInterval](#TimeInterval) format. | 
 `fun weeklyPlan(startDay: Int): TimeInterval ` | This method take `startDay: Int` as a parameter and return start and end `timeInMillis` and `Date` from `startDay` as [TimeInterval](#TimeInterval) format. | 
 
+
+# Speed
+`data class Speed`
+
+This `data class` has two variables 
+- `speed: String` for internet speed as string
+- `unit: String` for speed unit (`bits`/`bytes`)
+
 # NetSpeed
+`object NetSpeed`
+
+### Public Methods 
+Name| Details |
+---|----|
+`fun setSpeedUnitBits(isSpeedUnitBits: Boolean) ` | This method take `isSpeedUnitBits: Boolean` as a parameter for set speed unit bits or bytes. | 
+`fun getSpeedUnitBits(): Boolean` | This method return internet speed unit (`bits`/`bytes`)| 
+`fun calculateSpeed(timeTaken: Long, downBytes: Long, upBytes: Long): List<Speed>` | This method take time interval in `milliseconds`, `download bytes` and `upload bytes` and return type cast to human readable `List` of [Speed](#Speed) format.|
+
 
 # NetworkType
 

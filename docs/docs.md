@@ -92,3 +92,9 @@ This `data class` has three variables:
 - `date: String = ""`
 
 # Util
+`object Util`
+### Public Methods
+Name | Details
+---|---|
+`fun getSubscriberId(context: Context): String?` | This method take `Context` as a parameter and return `TelephonyManager.subscriberId` and It can be `nullable`.|
+`fun formatData(sent: Long, received: Long): List<String>` | This method take `upload` and `download` `bytes` as `Long` and return `listOf(sentData, receivedData, totalData)`.

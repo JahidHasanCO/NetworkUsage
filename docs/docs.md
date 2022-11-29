@@ -39,3 +39,18 @@ Name| Details |
 `val week: TimeInterval` | This variable will return a `week` of start and end `timeInMillis` and `week` `Date` as [TimeInterval](#TimeInterval) format. | 
 `val month: TimeInterval` | This variable will return a `month` of start and end `timeInMillis` and `month` `Date` as [TimeInterval](#TimeInterval) format. | 
 
+### Methods 
+Name| Details |
+---|----|
+`fun monthlyPlan(startDay: Int): TimeInterval ` | This method take `startDay: Int` as a parameter and return start and end `timeInMillis` and `Date` from `startDay` as [TimeInterval](#TimeInterval) format. | 
+`fun weeklyPlan(startDay: Int): TimeInterval ` | This method take `startDay: Int` as a parameter and return start and end `timeInMillis` and `Date` from `startDay` as [TimeInterval](#TimeInterval) format. | 
+
+# NetSpeed
+
+# NetworkType
+
+# TimeInterval
+
+# Usage
+
+# Util

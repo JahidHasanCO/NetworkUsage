@@ -22,3 +22,20 @@ open [NetworkUsageManager](docs/docs.md) | `fun getUsageNow(networkType: Network
 open [NetworkUsageManager](docs/docs.md) | `fun getUsage(interval: TimeInterval, networkType: NetworkType): Usage` return Usage of a single `Timestamp`. It takes [TimeInterval](#TimeInterval) and [NetworkType](#NetworkType) for get a single time prieod of Data. |
 open [NetworkUsageManager](docs/docs.md) | `    fun getMultiUsage(intervals: List<TimeInterval>, networkType: NetworkType): List<DataUsage>` return List of Usage of multiple `Timestamp`. It takes list of [TimeInterval](#TimeInterval) and [NetworkType](#NetworkType) for get multi-time prieod of Data. |
 
+
+
+# Interval
+`object Interval`
+
+### Variables 
+Name| Details |
+---|----|
+`val today: TimeInterval` | This variable will return today start and end `timeInMillis` and today `Date` as [TimeInterval](#TimeInterval) format. | 
+`val yesterday: TimeInterval` | This variable will return yesterday start and end `timeInMillis` and yesterday `Date` as [TimeInterval](#TimeInterval) format. | 
+`val lastWeekDaily: List<TimeInterval>` | This variable will return start and end `timeInMillis` and `Date` of every day of last 7 days as list [TimeInterval](#TimeInterval) format. | 
+`val lastMonthDaily: List<TimeInterval>` | This variable will return start and end `timeInMillis` and `Date` of every day of last 30 days as list [TimeInterval](#TimeInterval) format. | 
+`val last7days: TimeInterval` | This variable will return `last7days` start and end `timeInMillis` and `last7days` `Date` as [TimeInterval](#TimeInterval) format. | 
+`val last30days: TimeInterval` | This variable will return `last7days` start and end `timeInMillis` and `last30days` `Date` as [TimeInterval](#TimeInterval) format. | 
+`val week: TimeInterval` | This variable will return a `week` of start and end `timeInMillis` and `week` `Date` as [TimeInterval](#TimeInterval) format. | 
+`val month: TimeInterval` | This variable will return a `month` of start and end `timeInMillis` and `month` `Date` as [TimeInterval](#TimeInterval) format. | 
+

@@ -63,11 +63,32 @@ Name| Details |
 `fun getSpeedUnitBits(): Boolean` | This method return internet speed unit (`bits`/`bytes`)| 
 `fun calculateSpeed(timeTaken: Long, downBytes: Long, upBytes: Long): List<Speed>` | This method take time interval in `milliseconds`, `download bytes` and `upload bytes` and return type cast to human readable `List` of [Speed](#Speed) format.|
 
-
 # NetworkType
+`enum class NetworkType`
+This `enum class` has three type:
+- `MOBILE`
+- `WIFI`
+- `ALL`
 
 # TimeInterval
+`data class TimeInterval(val start: Long, val end: Long,var date: String = "")`
+This `data class` has three variables:
+- `start: Long` : for interval start `timeInMillis`.
+- `end: Long` : for interval end `timeInMillis`.
+- `date: String = ""`: for date of interval.
 
 # Usage
+`data class Usage`
+This `data class` has three variables:
+- `downloads: Long = 0L`
+- `uploads: Long = 0L`
+- `timeTaken: Long = 0L`
+
+# DataUsage
+`data class DataUsage`
+This `data class` has three variables:
+- `downloads: Long = 0L`
+- `uploads: Long = 0L`
+- `date: String = ""`
 
 # Util

@@ -46,9 +46,9 @@ To initialize `NetworkUsageManager` you need to create and object and pass as a 
 ### Public Methods
 Usages In | Details |
 --------|--
-open [NetworkUsageManager](docs/docs.md) | `fun getUsageNow(networkType: NetworkType: Usage ` return Usage of current `Timestamp`. It take [NetworkType]() as a Parameter. | 
-open [NetworkUsageManager](docs/docs.md) | `fun getUsage(interval: TimeInterval, networkType: NetworkType): Usage` return Usage of a single `Timestamp`. It takes [TimeInterval]() and [NetworkType]() for get a single time prieod of Data. |
-open [NetworkUsageManager](docs/docs.md) | `    fun getMultiUsage(intervals: List<TimeInterval>, networkType: NetworkType): List<DataUsage>` return List of Usage of multiple `Timestamp`. It takes list of [TimeInterval]() and [NetworkType]() for get multi-time prieod of Data. |
+open [NetworkUsageManager](docs/docs.md) | `fun getUsageNow(networkType: NetworkType: Usage ` return Usage of current `Timestamp`. It take [NetworkType](docs/docs.md#NetworkType) as a Parameter. | 
+open [NetworkUsageManager](docs/docs.md) | `fun getUsage(interval: TimeInterval, networkType: NetworkType): Usage` return Usage of a single `Timestamp`. It takes [TimeInterval](docs/docs.md#TimeInterval) and [NetworkType](docs/docs.md#NetworkType) for get a single time prieod of Data. |
+open [NetworkUsageManager](docs/docs.md) | `    fun getMultiUsage(intervals: List<TimeInterval>, networkType: NetworkType): List<DataUsage>` return List of Usage of multiple `Timestamp`. It takes list of [TimeInterval](docs/docs.md#TimeInterval) and [NetworkType](docs/docs.md#NetworkType) for get multi-time prieod of Data. |
 
 Full [Documentation](docs/docs.md) is here.
 

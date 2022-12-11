@@ -26,6 +26,9 @@ jobs:
 
       - name: Run Unit tests
         run: bash ./gradlew test --stacktrace
+        
+      - name: Run Gradle Lint
+        run: bash ./gradlew lint
   apk:
       name: Generate APK
       needs: test

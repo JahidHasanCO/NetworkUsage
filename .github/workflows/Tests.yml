@@ -28,6 +28,7 @@ jobs:
         run: bash ./gradlew test --stacktrace
   apk:
       name: Generate APK
+      needs: test
       runs-on: ubuntu-latest
 
       steps:

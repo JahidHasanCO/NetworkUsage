@@ -1,5 +1,7 @@
-name: Tests
-on: [push, pull_request]
+name: Unit Test and Generate APK
+on:
+  push:
+    branches: [ master ]
 
 jobs:
   test:

@@ -9,6 +9,7 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.os.Handler
+import android.os.Looper
 import android.os.Process
 import android.provider.Settings
 import android.widget.Toast
@@ -21,7 +22,6 @@ import dev.jahidhasanco.networkusage.*
 import dev.jahidhasanco.networkusagedemo.data.model.UsagesData
 import dev.jahidhasanco.networkusagedemo.databinding.ActivityMainBinding
 import dev.jahidhasanco.networkusagedemo.presentation.adapter.DataUsagesAdapter
-import kotlinx.android.synthetic.main.activity_main.*
 
 
 class MainActivity : AppCompatActivity() {
@@ -39,7 +39,7 @@ class MainActivity : AppCompatActivity() {
 
         val networkUsage = NetworkUsageManager(this, Util.getSubscriberId(this))
 
-        val handler = Handler()
+        val handler = Handler(Looper.getMainLooper())
         val runnableCode = object : Runnable {
             override fun run() {
                 val now = networkUsage.getUsageNow(NetworkType.ALL)
@@ -151,10 +151,10 @@ class MainActivity : AppCompatActivity() {
 
     private fun checkUsagePermission(): Boolean {
         val appOps = getSystemService(Context.APP_OPS_SERVICE) as AppOpsManager
-        var mode = 0
-        mode = appOps.checkOpNoThrow(
+        var mode: Int = appOps.checkOpNoThrow(
             "android:get_usage_stats", Process.myUid(),
             packageName
+
         )
         val granted = mode == AppOpsManager.MODE_ALLOWED
         if (!granted) {
